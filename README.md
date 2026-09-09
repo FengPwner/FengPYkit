@@ -28,13 +28,18 @@ cd FengPYkit
 ```
 3.(Optional) Install `figlet` for the best visual experience:
 If `figlet` is not installed, the script will fallback to a standard text banner.
+
 ◦Debian/Ubuntu/Kali: `sudo apt install figlet`
+
 ◦Termux: `pkg install figlet`
+
 ◦MacOS: `brew install figlet`
 
-Usage
-Run the script using Python 3:
+## Usage
+**Run the script using Python 3:**
+```
 python3 FengDDoS.py
+```
 Follow the on-screen prompts:
 1.Enter the Target IP address.
 2.Enter the Target Port.
