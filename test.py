@@ -6,7 +6,6 @@ import socket
 import random
 # Code Time
 from datetime import datetime
-# 新增导入 gethostbyname 用于域名解析
 from socket import gethostbyname 
 
 now = datetime.now()
@@ -41,17 +40,15 @@ print (" ")
 print (" ")
 print (" ")
 
-# --- 修改开始 ---
 target = input("IP or Domain: ")
 try:
-    # 尝试将输入解析为IP地址。如果是域名，gethostbyname会自动将其转换为IP
+    
     ip = gethostbyname(target)
     print(f"[+] Resolved target to IP: {ip}")
 except socket.gaierror:
-    # 如果解析失败（既不是合法IP也不是合法域名），则退出
+    
     print("[-] Error: Could not resolve the specified IP or Domain.")
     sys.exit(1)
-# --- 修改结束 ---
 
 port = int(input("port: "))
 sd = int(input("speed(1~1000) : "))
