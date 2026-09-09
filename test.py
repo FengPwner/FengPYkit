@@ -4,9 +4,6 @@ import os
 import time
 import socket
 import random
-import json
-import urllib.request
-import urllib.error
 from datetime import datetime
 from socket import gethostbyname 
 
