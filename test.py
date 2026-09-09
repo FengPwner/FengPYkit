@@ -16,8 +16,6 @@ class color:
     BLUE = "\033[94m"
     CYAN = "\033[96m"
 
-LOCAL_VERSION = "1.0.2"
-VERSION_URL = "https://raw.githubusercontent.com/FengPwner/FengPYkit/main/version.json"
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 bytes_data = random._urandom(1490)
