@@ -22,7 +22,7 @@ def show_banner():
     print (" Github : https://github.com/FengPwner ")
     print (" Atomgit : https://atomgit.com/FengPwner ")
     print (" CSDN : https://blog.csdn.net/2302_76189356 ")
-    print (" Version : 0.3.5 (Modified) ")
+    print (" Version : 0.3.6 (Modified) ")
     print ("---------------------------------------------------")
     print (" To update, please use `git pull` ")
     print ("---------------------------------------------------")
@@ -30,19 +30,30 @@ def show_banner():
     print (" -----------------[Do not use for illegal purposes]----------------- ")
     print (" ")
 
-def handle_error():
-    """统一的错误交互处理：返回主界面(y)、退出(n)或修改(e)"""
+def handle_error(allow_edit=True):
+    """统一的错误交互处理"""
     while True:
-        choice = input("[?] Return to menu (y), Exit (n), or Edit (e): ").strip().lower()
-        if choice == 'y':
-            return 'y'
-        elif choice == 'n':
-            print("[*] Exiting script. Goodbye!")
-            sys.exit(0)
-        elif choice == 'e':
-            return 'e'
+        if allow_edit:
+            choice = input("[?] Return to menu (y), Exit (n), or Edit (e): ").strip().lower()
+            if choice == 'y':
+                return 'y'
+            elif choice == 'n':
+                print("[*] Exiting script. Goodbye!")
+                sys.exit(0)
+            elif choice == 'e':
+                return 'e'
+            else:
+                print("[-] Invalid input. Please enter 'y', 'n', or 'e'.")
         else:
-            print("[-] Invalid input. Please enter 'y', 'n', or 'e'.")
+            # 当不允许编辑时（如Ctrl+C中断），只提示 y 和 n
+            choice = input("[?] Return to menu (y) or Exit (n): ").strip().lower()
+            if choice == 'y':
+                return 'y'
+            elif choice == 'n':
+                print("[*] Exiting script. Goodbye!")
+                sys.exit(0)
+            else:
+                print("[-] Invalid input. Please enter 'y' or 'n'.")
 
 # 主循环：用于支持“返回界面”功能
 while True:
@@ -60,7 +71,7 @@ while True:
             break  # 解析成功，跳出当前循环
         except socket.gaierror:
             print("[-] Error: Could not resolve the specified IP or Domain.")
-            action = handle_error()
+            action = handle_error(allow_edit=True) # 输入错误时允许编辑
             if action == 'y': 
                 break  # 跳出IP输入循环，回到主菜单
             elif action == 'e': 
@@ -83,7 +94,7 @@ while True:
             break  # 校验成功，跳出当前循环
         except ValueError:
             print("[-] Error: Invalid port. Please enter a number between 1 and 65535.")
-            action = handle_error()
+            action = handle_error(allow_edit=True) # 输入错误时允许编辑
             if action == 'y': 
                 break  # 跳出端口输入循环，回到主菜单
             elif action == 'e': 
@@ -106,7 +117,7 @@ while True:
             break  # 校验成功，跳出当前循环
         except ValueError:
             print("[-] Error: Invalid speed. Please enter a number between 1 and 1000.")
-            action = handle_error()
+            action = handle_error(allow_edit=True) # 输入错误时允许编辑
             if action == 'y': 
                 break  # 跳出速度输入循环，回到主菜单
             elif action == 'e': 
@@ -129,7 +140,8 @@ while True:
 
     except KeyboardInterrupt:
         print("\n\n[!] Attack interrupted by user.")
-        action = handle_error()
+        # Ctrl+C 中断时，不允许编辑，只允许返回菜单或退出
+        action = handle_error(allow_edit=False) 
         if action == 'y': 
             continue  # 回到主菜单
-        # 如果选择 n，handle_error 内部已经退出；如果选择 e，重新发包（继续当前循环）
+        # 如果选择 n，handle_error 内部已经退出
