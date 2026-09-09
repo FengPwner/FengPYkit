@@ -21,6 +21,7 @@
 ```bash
 git clone https://github.com/FengPwner/FengPYkit.git
 cd FengPYkit
+```
 1.Ensure you have Python 3 installed:
 2.
 ```bash
@@ -32,7 +33,7 @@ If `figlet` is not installed, the script will fallback to a standard text banner
 ◦Termux: `pkg install figlet`
 ◦MacOS: `brew install figlet`
 
-💻 Usage
+Usage
 Run the script using Python 3:
 python3 FengDDoS.py
 Follow the on-screen prompts:
@@ -41,7 +42,7 @@ Follow the on-screen prompts:
 3.Enter the Packet Size (optional, default is usually set in code).
 4.The attack will commence immediately.
 
-📜 License
+License
 This project is open-source. Please use responsibly.
 Author: FengPwner
 Version: 1.0
