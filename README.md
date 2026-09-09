@@ -50,7 +50,8 @@ Follow the on-screen prompts:
 
 4.The attack will commence immediately.
 
-License
+## License
+
 This project is open-source. Please use responsibly.
 
 Author: FengPwner
