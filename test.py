@@ -34,10 +34,7 @@ def show_banner():
     print(f"{color.YELLOW}---------------------------------------------------{color.RESET}")
     print(f"{color.RED}{color.BOLD} [!] Do not use for illegal purposes!{color.RESET}\n")
 
-    update_status = check_for_update()
-    if update_status["has_update"]:
-        print(f"{color.GREEN}{color.BOLD} [★] New version available: {update_status['remote_version']}!{color.RESET}")
-        print(f"{color.GREEN} [★] Download: {update_status['download_url']}{color.RESET}\n")
+    
 
 def handle_error(allow_edit=True):
     while True:
