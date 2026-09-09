@@ -4,6 +4,9 @@ import os
 import time
 import socket
 import random
+import json
+import urllib.request
+import urllib.error
 from datetime import datetime
 from socket import gethostbyname 
 
@@ -16,8 +19,27 @@ class color:
     BLUE = "\033[94m"
     CYAN = "\033[96m"
 
+LOCAL_VERSION = "1.0.2"
+VERSION_URL = "https://raw.githubusercontent.com/FengPwner/FengPYkit/main/version.json"
+
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 bytes_data = random._urandom(1490)
+
+def check_for_update():
+    update_info = {"has_update": False}
+    try:
+        req = urllib.request.Request(VERSION_URL, headers={'User-Agent': 'Mozilla/5.0'})
+        with urllib.request.urlopen(req, timeout=3) as response:
+            if response.status == 200:
+                data = json.loads(response.read().decode('utf-8'))
+                remote_version = data.get("version", "0.0.0")
+                if remote_version > LOCAL_VERSION:
+                    update_info["has_update"] = True
+                    update_info["remote_version"] = remote_version
+                    update_info["download_url"] = data.get("download_url", "")
+    except Exception:
+        pass
+    return update_info
 
 def show_banner():
     os.system("clear")
@@ -27,9 +49,14 @@ def show_banner():
     print(f"{color.BOLD} Github :{color.RESET} https://github.com/FengPwner")
     print(f"{color.BOLD} Atomgit:{color.RESET} https://atomgit.com/FengPwner")
     print(f"{color.BOLD} CSDN   :{color.RESET} https://blog.csdn.net/2302_76189356")
-    print(f"{color.BOLD} Version:{color.RESET} 1.0.2 (Cleaned)")
+    print(f"{color.BOLD} Version:{color.RESET} {LOCAL_VERSION}")
     print(f"{color.YELLOW}---------------------------------------------------{color.RESET}")
     print(f"{color.RED}{color.BOLD} [!] Do not use for illegal purposes!{color.RESET}\n")
+
+    update_status = check_for_update()
+    if update_status["has_update"]:
+        print(f"{color.GREEN}{color.BOLD} [★] New version available: {update_status['remote_version']}!{color.RESET}")
+        print(f"{color.GREEN} [★] Download: {update_status['download_url']}{color.RESET}\n")
 
 def handle_error(allow_edit=True):
     while True:
