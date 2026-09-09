@@ -35,20 +35,11 @@ If `figlet` is not installed, the script will fallback to a standard text banner
 
 ◦MacOS: `brew install figlet`
 
-## Usage
+## Use
 **Run the script using Python 3:**
 ```
 python3 FengDDoS.py
 ```
-Follow the on-screen prompts:
-
-1.Enter the Target IP address.
-
-2.Enter the Target Port.
-
-3.Enter the Packet Size (optional, default is usually set in code).
-
-4.The attack will commence immediately.
 
 ## License
 
