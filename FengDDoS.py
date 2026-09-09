@@ -27,8 +27,7 @@ def show_banner():
     print(f"{color.BOLD} Github :{color.RESET} https://github.com/FengPwner")
     print(f"{color.BOLD} Atomgit:{color.RESET} https://atomgit.com/FengPwner")
     print(f"{color.BOLD} CSDN   :{color.RESET} https://blog.csdn.net/2302_76189356")
-
-    print(f"{color.YELLOW}---------------------------------------------------{color.RESET}")
+        print(f"{color.YELLOW}---------------------------------------------------{color.RESET}")
     print(f"{color.RED}{color.BOLD} [!] Do not use for illegal purposes!{color.RESET}\n")
 
 def handle_error(allow_edit=True):
