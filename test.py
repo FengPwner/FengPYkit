@@ -16,11 +16,8 @@ class color:
     BLUE = "\033[94m"
     CYAN = "\033[96m"
 
-
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 bytes_data = random._urandom(1490)
-
-
 
 def show_banner():
     os.system("clear")
@@ -29,12 +26,8 @@ def show_banner():
     print(f"{color.BOLD} Author :{color.RESET} FengPwner")
     print(f"{color.BOLD} Github :{color.RESET} https://github.com/FengPwner")
     print(f"{color.BOLD} Atomgit:{color.RESET} https://atomgit.com/FengPwner")
-    print(f"{color.BOLD} CSDN   :{color.RESET} https://blog.csdn.net/2302_76189356")
-    print(f"{color.BOLD} Version:{color.RESET} {LOCAL_VERSION}")
-    print(f"{color.YELLOW}---------------------------------------------------{color.RESET}")
+    print(f"{color.BOLD} CSDN   :{color.RESET} https://blog.csdn.net/2302_76189356")        print(f"{color.YELLOW}---------------------------------------------------{color.RESET}")
     print(f"{color.RED}{color.BOLD} [!] Do not use for illegal purposes!{color.RESET}\n")
-
-    
 
 def handle_error(allow_edit=True):
     while True:
