@@ -20,21 +20,7 @@ class color:
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 bytes_data = random._urandom(1490)
 
-def check_for_update():
-    update_info = {"has_update": False}
-    try:
-        req = urllib.request.Request(VERSION_URL, headers={'User-Agent': 'Mozilla/5.0'})
-        with urllib.request.urlopen(req, timeout=3) as response:
-            if response.status == 200:
-                data = json.loads(response.read().decode('utf-8'))
-                remote_version = data.get("version", "0.0.0")
-                if remote_version > LOCAL_VERSION:
-                    update_info["has_update"] = True
-                    update_info["remote_version"] = remote_version
-                    update_info["download_url"] = data.get("download_url", "")
-    except Exception:
-        pass
-    return update_info
+
 
 def show_banner():
     os.system("clear")
