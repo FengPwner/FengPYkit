@@ -22,7 +22,7 @@
 git clone https://github.com/FengPwner/FengPYkit.git
 cd FengPYkit
 ```
-2. Ensure you have Python 3 installed:
+2. **Ensure you have Python 3 installed:**
 ```bash
    python3 --version
 ```
